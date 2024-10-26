@@ -1,0 +1,53 @@
+printf(control str,args) is a executable statement
+int printf(const char *_format,....); is generic statement
+
+. Compilation system starts with .c
+ 1.pre-processing-->.i like #statements
+ 2.compilation-->.s
+ 3.assembler-->.o(object programs binary) it is runnable in any after linking with linker
+ 4.linker--> hello is ready to be loaded in main memory and executed and linked with liabraries
+
+in command prompt
+- pwd->present working directory
+- man date->manual pages start with man
+- man 3 printf->cant do printf(3) or man printf 3
+- scanf return number of successfully scanned arguments
+- cal command gives calender format cal month year
+- nl content with line number format nl x.c
+- ls -l file
+- vi file
+- ./file to run
+- ll
+- lp command for printing files
+- tty command used to print the name of file/terminal format tty
+- who command gives currently logged in users format who->format whoami gives name of user
+- gcc to compile one file
+- make to compile building applications
+- gcc --help to get all the details
+
+directory commands:
+creating directory ->mkdir dirname
+creating multiple directories ->mkdir x y z
+remiving
+changing directory cd
+creating directory under directory ->cd test01/name
+to create file ->name$ touch t1.c
+to move parnt directory ->name$ cd ../
+hidden files ->test01$ ls -la name/
+to see files in it ->test01$ ls diectory name
+again to child directory ->test01$ cd -
+to move to home directory ->name$ cd../../
+removing directory if it is not empty -> rm -f(forcefully removing) -r(recursive) name/ or rm -rf name
+to see directory -> test01$ ll
+to get help ->rmdir --help
+links->hard links only for files
+write in file ->name$ vi t1.c
+read the file ->name$ cat t1.c
+root has no parent directory
+we can chage to root user by su and passsword
+inode number ->text01$ ls -la -i to get even hidden or ls -li
+process running on system and pid of shell->ps
+all the processes running in system->ps -ef
+creating hardshortcut ->name$ ln t1.c hardlink
+	soft links for directories and files
+removing softshortcut directories -> test01$ rm -rf softlink
