@@ -1,0 +1,19 @@
+if it is numeric u will use switch otherwise if it is string float you will use else if.
+case 1 or ascii values as it goes binary search, it donot goes line by line by once it will check and gives output. and it also contain if statements in it.
+git config credential.helper store first to ask only password when we push. after if wont ask any.
+WHY GCC -G
+After debugging we need to get exited normally.
+first b main
+to add break point b line number
+to run r after next n
+to print variable /print variablename
+after next n
+WHY THERE IS A ; AT THE END OF DO WHILE
+no in for lopp then it is infinite loop to avoid that we need to give then inside the loop or initialisation outside.
+if scanf happened properly then apply error handling for scanf.how? not said
+exit(int status) kills the process.
+macros means defining #define True 1.
+doubts:
+1.stack smashing detected error.
+2.can we print the buff elements
+3 5 7 9
