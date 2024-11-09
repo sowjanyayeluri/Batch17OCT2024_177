@@ -21,21 +21,21 @@ int main()
 }
 int NthNumber(int digits[],int n)
 {
-    int num=2;
+    int num=0;
     while(n>0)
     {
+        num++;
         if(num==containDigits(digits,num))
         {
             n--;
         }
-        num++;
     }
     return num;
 }
 int containDigits(int digits[],int n)
 {
     int temp=n;
-    int count;
+    int count=0;
     while(n>0)
     {
         int result=n%10;

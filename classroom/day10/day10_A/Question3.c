@@ -4,6 +4,7 @@
 	DATE		NAME
 	7-NOV-24	Sowjanya
 */
+
 A3. Write a program to find the  n-th number made of prime digits
 
 #include <stdio.h>
@@ -16,7 +17,7 @@ int main()
     for(int i=0;i<testCases;i++)
     {
         scanf("%d",&input);
-           int prime_digits[]={2,3,5,7};
+        int prime_digits[]={2,3,5,7};
         //printf("%d",isPrime(prime_digits,3));
         printf("%d",findNthNumber(prime_digits,input));
     }
@@ -24,21 +25,21 @@ int main()
 }
 int findNthNumber(int primes[],int n)
 {
-    int num=2;
+    int num=0;
     while(n>0)
     {
+        num++;
         if(num==isPrime(primes,num))
         {
             n--;
         }
-        num++;
     }
     return num;
 }
 int isPrime(int prime[],int n)
 {
     int temp=n;
-    int count;
+    int count=0;
     while(n>0)
     {
         int result=n%10;
@@ -49,14 +50,14 @@ int isPrime(int prime[],int n)
         }
         n=n/10;
     }
-    if(temp>=10)
+    if(temp<10)
     {
-        if(count==2)
+        if(count==1)
             return temp;
     }
     else
     {
-        if(count==1)
+        if(count==2)
             return temp;
     }
     return 0;

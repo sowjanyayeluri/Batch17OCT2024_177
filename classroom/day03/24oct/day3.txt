@@ -1,0 +1,52 @@
+changing the file permissions in unix:
+- chmod to change permission of file or directory only owners and superusers
+- 1-execute
+- 2-write
+- 4-read
+- w-write
+- o-others
+- all at a time 0xxx(0 is special bit even it word without 0) file or directory name
+- chown newusername filename
+in switch case:
+how switch is internally operated-> it converts into numeric and search like binary search
+IMPORTANT
+* String Handling *
+
+- .so or .a files are library files
+- .a are static libraries 
+- .so are shared libraries
+- dlopen dynamic libraries
+shared liabraries are no embedded into the excutable but loaded at runtimes
+Shell Programming
+System variables
+echo to print
+echo $variable->get the content in variable
+echo $PS1->PRINTS THE PRIMARY PROMPT STRING
+PS2
+profile 
+history
+.bashrc
+shell script x.sh
+execution sh x.sh
+ASSIGNMENT
+reading two number addition and sum
+command line arguments
+-$0 -gives name of executable program
+-$* - gives all the argument names
+-$# - count of number of arguments passed
+-$1 - first argument
+-$$ - PID of currnt shell
+-$! - PID of last background job
+-$? - exit status of last command
+-$@ - $* but used with strings in looping constructs
+-wc
+-find - to find file in directory
+-filter - takes its input from standard input
+-head
+-tail
+-grep - global search for regular expression and print utility goes inside the content of the fie to search
+ -n:prints line numbers
+ -v:the reverse search criterion
+ -c:display only a count of matching patterns
+ -scp filename username@ipaddress:port:/path
+
