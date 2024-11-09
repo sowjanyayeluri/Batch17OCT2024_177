@@ -1,0 +1,95 @@
+int *ptr //ptr is not belong to any data type it is a special variable which is pointing to integer variable.
+four types of pointers:
+null pointer int *ptr = null;
+void pointer/generic pointer because it can point to any kind of datatype.
+wild pointer int *prt; without initialisation
+dangling pointer is not name of poiner it is situation of pointer
+all pointers size are 4/8 bytes irrespective of datatype
+ERROR: IF WE TRY TO PRINT THE VALUE INVALID USE OF VOID * POINTER BECAUSE GENERIC POINTER CANT CONVERT ITSELF WE NEED TO GIVE EXPLICITLY LIKE TYPE CONVERSION *((INT *)PTR) CONVERTING VOID POINT TO POINT INTEGER.
+ABOVE HAPPENS ONLY WITH GENERIC POINTERS
+two thumb rules:
+1. &*-nullify each other
+2. to convert array to pointer a[]-*([] is converted to *)p a[0]-*(a+0)
+Unnamed address to pointers
+we cant do below
+if u do *ptr=NULL
+	  *ptr=101
+then u get segmentation fault(core dumped).
+we use malloc if thes fails it will return null
+ptr=(int *)malloc(howmanyelements*sizeof(datatype))
+if we write in not allocated memory if may override it will give that assigned value or garbage value.
+PERROR();
+write a program to find the value if it present in list.
+,calloc,and other for dynamic. in this we cant loose the base address as it donot have nameaddress.
+storage class:
+1.static-makes available till thae end of processor.makes variable global.
+2.extern
+3.auto-by default all the variables are auto
+4.register-it is used to store the declared value in cpu register that makes accessing the thing is fast
+allocMem:
+dangling pointer situation to avoid use static storage class
+pointer functions
+====================
+Welcome
+
+PROGRAMS:
+
+1
+#include <stdio.h>
+int f(int);
+int main()
+{
+    int res = f(5);
+    printf("\n%d",res);
+    return 0;
+}
+int f(int v)
+{
+    if(v==0)
+        return 1;
+    v--;
+    f(v);
+    printf("\nValue of Func: %d",v);
+    return v;
+}
+
+2
+#include <stdio.h>
+#include <stdlib.h>
+int getValue(int *,int);
+int main()
+{
+    int *ptr=NULL;
+    int element;
+    int searchValue;
+    int *temp=NULL;
+    ptr=(int *)malloc(4*sizeof(int));
+    temp=ptr;
+    for(int i=0;i<4;i++){
+        printf("Enter the value: ");
+        scanf("%d",&element);
+        *ptr=element;
+         ptr++;
+    }
+    ptr=temp;
+    printf("Enter the value to search: ");
+    scanf("%d",&searchValue);
+    printf("Value at the index: %d",getValue(ptr,searchValue));
+    
+    
+
+    return 0;
+}
+int getValue(int *ptr, int value)
+{
+    for(int i=0;i<4;i++)
+    {
+        if(*ptr==value)
+        {
+            return i;
+        }
+        ptr++;
+    }
+}
+
+
