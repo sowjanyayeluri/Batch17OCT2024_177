@@ -1,0 +1,125 @@
+directory commands:
+format source x to upend running it is not for all the files
+sleep format sleep time or sleep &(background)
+sort
+redirection
+killing app format kill -9 <pid> or kill -s signalname <pid>
+vi editor:
+modes-> input
+        command
+        esc mode
+i- left of the cursor
+I- beggining of the line
+a- right of the cursor
+A- end of the line
+o- opens line below
+O- opens line above
+R- replacing the text cursor to right
+s- replaces the sngle character at cursor with any number of characters
+S- replaces the entire line
+to go input to command press<Esc>
+:w- save
+:q- quit
+:q!- quit without saving
+:wq or x- save and quit
+dw- delete word
+dd to remove line
+shift+$- end of file
+u- undo
+hljk moves cursor left down
+^ .cursor to begining of line
+$ cursor to end of line
+. any single character
+[...] any one character from the list
+[^...] string beginning from any character after^ wiil be executed
+control-f- full page forward
+control-b- full page backward
+/pattern
+tar to archive the file
+to search in esc mode n for down shift n for top
+:set 
+x-> to delete
+r-> to replace
+cw->change word
+dw->delete word
+yy->copy
+p->paste
+y+number of lines
+d+number of lines
+disk usage
+-xvf untar
+cvf tar
+first:
+- man xq
+- x --help
+- mkdir x or mkdir x -v
+- rmdir x or rmdir x -v
+- 
+
+
+unix os consists of three parts kernel, shell and programs.
+booting process
+run levels that unix system has
+0-shoutdown
+1-administrative
+sorS-single user state
+2-multiple user state
+6-stop or reboot
+
+files
+devices are special file
+internally each file is assigned a identification number is called inode.
+file types
+1.regular
+2.directory
+3.executable
+4.symbolic
+5.device specific
+6.nnamed file
+file name convention->case sensitive it contains alphabets digits dots underscores
+directory structure:
+root only contains system directory
+swap file is virtual memory
+/bin is execuble files but /bin in /usr is third party
+
+directory commands:
+creating directory ->mkdir dirname
+changing directory cd
+creating directory under directory ->cd test01/name
+to create file ->name$ touch t1.c if it already exist then it  changes the time
+to move parnt directory ->name$ cd ../
+hidden files ->test01$ ls -la name/
+to see files in it ->test01$ ls diectory name
+again to child directory ->test01$ cd -
+to move to home directory ->name$ cd../../
+removing directory if it is not empty -> rm -f(forcefully removing) -r(recursive) name/
+to see directory -> test01$ ll
+to get help ->rmdir --help
+links->hard links only for files
+write in file ->name$ vi t1.c
+read the file ->name$ cat t1.c
+root has no parent directory
+inode number ->text01$ ls -la -i
+process running on system and pid->ps
+all the processes running in system->ps -ef
+creating hardshortcut ->name$ ln t1.c hardlink
+	soft links for directories and files
+removing softshortcut directories -> test01$ rn -rf softlink
+
+-conditional execution
+"^$1"
+for integers:
+eq- equal to
+ne- not equal to
+gt- greater than
+gc- greater than or equal to
+lt- less than
+lc- less than or equal to
+string operators:
+-n str- true,if str not a null string
+-z str- true,if str is a null string
+s1 = s2- true,if s1 = s2
+s1!=s2- true,if s1!=s2
+Tools:
+fatal error: calc.h
+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
