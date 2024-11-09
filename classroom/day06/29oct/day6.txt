@@ -1,0 +1,20 @@
+see the static and shared libraries
+ctags: generate tag file by ctag -R vi file.c
+in vi run :set tags=<pathoftagfile> ../../tag
+ctrl-] opens the function
+ctrl-t backwards
+cscope: generate the cscope file cscope.out by cscope find . -name'*.[ch]'
+cscope -i cscope.files
+come out using ctrl d
+performance profiling using gprof amount of time taken by functions while execution
+gcc -o application -pg main.c
+after run application then we get gmon.out then gprof ./application gmon.out
+gdb debugger:
+valgrind(sprint project requires this)-> after creating execution file use valgrind -v --tool=memcheck --leak-check=full --show-reachable=yes --log-files=valclient1.report ./executablefile.
+structure of c program:
+documentation section-> is the comment section contains: description, author, DOC/DOM, version: 0.1v(if it is newly creating) 1.0 is the stable version-> basing the project
+linker section-> header files or linking references
+defining macro at defination section or define any function(gcc -std=xxx)
+global declaration section
+function section
+(a>b)?((a>c)?a:c):((b>c)?b:c).
