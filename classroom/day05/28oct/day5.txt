@@ -1,0 +1,10 @@
+creating local repositary with init and cloning
+for not asking username and password git config --global user.email""
+after going to git-> cat config
+we can do complete execution using shell scripting
+make uility
+code coverage
+gcov
+segmentation fault (core dumped) error
+Implicit delcaration:u have used the interface but not declared
+create calc.h calc.c main.c:wq
