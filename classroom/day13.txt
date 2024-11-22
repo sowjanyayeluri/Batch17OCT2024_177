@@ -1,0 +1,164 @@
+Unions:
+the only diifernce is we can able to access only one element at a time.
+just after allocating value u need to call it. 
+Enums
+FILE HANDLING:
+we use SOF and EOF to start and end of file.
+FILE data structure or typedefined name for files.
+two types:
+1.sequential file
+2.randm access file
+to open file fopen(filename,modofaccess) modes r,w,rw,append. fopen return file pointer if file exits if not returns null
+fprintf,fscanf are formatted wrinting and reading.
+fgets,fputs are unformatted i/o operation
+fwrite/fread are reading and writing binary objects
+Question:
+Allocate the size based on no of records in file.
+by using system function we cant execute system commands.
+ftell(fd) say the cursor position
+fseek(fd,bytes to move,(SEET_SET OR SEEK_CUR OR SEEK_END) if u used apart from this this gives EINVALID error) set the cursor position it not give error if it is end of the file
+rewind(fd) set file pointer to beginning of the file
+fread() to read from file return no of bytes read
+fwrite() to write into file in binary formt return no of bytes written 
+
+Typedef Struct EMP
+
+{
+
+Int id;
+
+Float sal;
+
+Char g;
+
+Char Name[20];
+
+}sEMP;
+
+
+Typedef Union uEmployee
+
+{
+
+Int id;
+
+int sal;
+
+Char g;
+
+Char Name[20];
+
+}uEMP;
+
+
+Int main()
+
+{
+
+sEMP es;
+
+uEMP eu;
+
+Printf(“\n size of union = %d”,sizeof(eu));
+
+Printf(“\n size of structure = %d”,sizeof(es));
+
+Printf(“\n\n”);
+
+
+eu.id = 101;
+
+eu.sal= 10000
+
+printf(“\n%d”,eu.id); /// Here the sal is overridden and the output is 10000
+
+
+eu.id = 101;
+
+eu.sal= 10000;
+
+strcpy(eu.Name,”Bhima”);
+
+printf(“\n%d”,eu.id) /// Here it prints the ascii values
+
+
+
+eu1= (uEMP *)malloc(sizeof(uEMP));
+
+eu1 ->id = 102;
+
+printf(“%d”,eu1->id);
+
+
+
+Enum enum-type-name
+
+{
+
+Enumeration list
+
+}variable_list;
+
+
+E.g.:
+
+Enum daysOfWeek
+
+{
+
+Monday=1000, Tuesday,Wednesday,
+
+Thursday=4005, Friday, Saturday,
+
+Sunday
+
+} Days;
+
+
+Int main()
+
+{
+
+
+Days=Monday;
+
+Printf(“\n Day= %d”,Days);
+
+
+Return0;
+
+}
+
+Enum RegClrCodes
+
+{
+
+Black, Brown, Red, Orange,
+
+Yellow, Green, Blue, Violet, Gray, White
+
+} RCC;
+
+
+int main()
+
+{
+
+Scanf(“%d”,&n);
+
+Switch(n)
+
+{
+
+Case Black: printf(“Black);
+
+Break;
+
+Case Brown: printf(“Brown”);
+
+Break;
+
+}
+
+}
+
