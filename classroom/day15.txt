@@ -1,0 +1,12 @@
+command line arguments:
+The cla should be received by main
+2d array *argv[] columns specified but rows not.
+throgh this we can give pathname as well.
+The first argument is arguments count argc
+The arguments should be in strings
+The arguments should be passed with space
+We can pass the file names also a arguments
+We can mange the number of arguments to take by argc using if
+Main(int argc, char *argv[])
+
+write a program to read contents from file and store them in employee details.
