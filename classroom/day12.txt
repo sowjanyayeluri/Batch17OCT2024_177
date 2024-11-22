@@ -1,0 +1,134 @@
+sequence/activity diagram
+uml diagram
+STRINGS:
+1.strlen 2.strcmp 3.strcpy 4.strstr 5.strcat 6.strtok 7.strchr
+revesing string with string operations:
+cannot cat digits as it is not returning string. if it would then we can use in nested to do modify digits to return string
+strtok contains its own pointer and also adds null character at end
+ptr = strtok(lines,"|"); assign base address
+ptr = strtok(NULL,"|"); repeats untill null reaches. once reached return null to ptr
+structures:
+can have nested structure
+Error
+free(): invalid pointer
+aborted (core dumped) when dynamic memory is move to base address to other which is not dynamically allocated so we need to move to base address and then free.
+#include<stdio.h>
+
+typedef struct Employee
+
+{
+
+Int id;
+
+Int sal;
+
+Int phno;
+
+Char Name [20];
+
+Char gender;
+
+} EMP;
+
+//Int printEmp(Emp *);
+
+//Int getEmp(Emp *);
+
+Int main ()
+
+{
+
+EMP e1;
+
+EMP *e=NULL;
+
+e = &e1;
+
+scanf(“%d%d%d%s%c”,&e1.id,&e1.sal,&e1.phno,e1.name,&e1.gender);
+
+printf(“\n Id : %d”,e->id);
+
+printf(“\n Name: %s”,e->Name);
+
+printf(“\n Salary:%d”,e->sal);
+
+.
+
+.
+
+.
+
+Return 0; /// named address
+}
+
+Int main() //unnamed address
+
+{
+
+EMP *e=NULL;
+
+e = (EMP *)malloc(sizeof(EMP));
+
+scanf(“%d%d%d%s%c”,&e1->id,&e1->sal,&e1->phno,e1->name,&e1->gender);
+
+printf(“\n Id : %d”,e->id);
+
+printf(“\n Name: %s”,e->Name);
+
+printf(“\n Salary:%d”,e->sal);
+
+.
+
+.
+
+Free(e);
+
+Return 0;
+
+}
+
+Generally in pointers while scanning we do not give address. We only specify the ptr. But for structures we need to give the &ptr i.e the address.
+
+
+Int main() //unnamed address with multiple records
+
+{
+
+EMP *e=NULL;
+
+Int n;
+
+Printf(“Enter the number of employees”);
+
+Scanf(“%d”,&n);
+
+e = (EMP *)malloc(n*sizeof(EMP));
+
+temp=e; // We store the address of e to get back to the base address
+for(i=0;i<n;i++,e++)
+
+scanf(“%d%d%d%s%c”,&e->id,&e->sal,&e->phno,e->name,&e->gender);
+
+e=temp;
+
+for (i=0;i<n;i++,e++)
+
+{
+
+printf(“\n Id : %d”,e->id);
+
+printf(“\n Name: %s”,e->Name);
+
+printf(“\n Salary:%d”,e->sal);
+
+.
+
+.
+
+}
+
+Free(e);
+
+Return 0;
+
+}
