@@ -1,0 +1,180 @@
+when a member of a structure is a pointer which is referencing to itself type is called self referencial pointer
+structure 
+1.creating
+2.inserting
+3.making relationship(created linked list)
+4.navigating/traversing(ptr1=h1.ptr to take h2 address)
+as struct contains
+struct h
+{
+	int a;
+	struct h *ptr;(SRP)
+}
+ptr1=h1.ptr
+40,10,20,10,10,30
+
+1.single linked list
+2.double linked list
+3.circular linked list
+
+Assignment
+1.deleting begining of the doubled list
+2.deleting end of the doubled list
+3.free the memory while exiting after do valgrind
+4.circular linked list menu
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node
+{
+    int a;
+    struct node *ptr;//self referncial pointer
+}NODE;
+
+int deleteNode(NODE *,int);
+void printList(NODE *);
+NODE *appendNode(NODE *,NODE *);
+int main()
+{
+    NODE h1,h2,h3,h4,h5,h6; //just variables
+    NODE *ptr1=NULL; //use to navigate or traverse between nodes
+    h1.a=10;
+    h1.ptr=NULL;
+    /*
+    h2.a=10;
+    h2.ptr=NULL;
+    h3.a=10;
+    h3.ptr=NULL;
+    h1.ptr=&h2;
+    h2.ptr=&h3;
+
+    printf("\nh1 %u",&h1);
+    printf("\nh2 %u",&h2);
+    printf("\nh3 %u",&h3);
+
+    printf("\nptr1 %u",&ptr1);
+    printf("\n h1a %d h1ptr %u",h1.a,h1.ptr);
+    printf("\n h2a %d h2ptr %u",h2.a,h2.ptr);
+    printf("\n h3a %d h3ptr %u",h3.a,h3.ptr);
+    printf("\n ptr1 %u",ptr1);
+
+    ptr1=&h1;
+    printf("\n%d",h1.a);
+    printf("%d",ptr1->a);
+
+    ptr1=h1.ptr;
+    printf("\n%d",h2.a);
+    printf("%d",ptr1->a);
+ ptr1=h2.ptr;
+    printf("\n%d",h3.a);
+    printf("%d",ptr1->a);
+
+
+    h4.ptr=&h2;
+    ptr1=&h1;
+    printf("\n%d",h1.a);
+    printf("%d",ptr1->a);
+    ptr1=h1.ptr;
+    printf("\n%d",h4.a);
+    printf("%d",ptr1->a);
+    ptr1=h4.ptr;
+    printf("\n%d",h2.a);
+    printf("%d",ptr1->a);
+    ptr1=h2.ptr;
+    printf("\n%d",h3.a);
+    printf("%d",ptr1->a);
+
+    h1.ptr=&h4;
+    h4.a=20;
+    h4.ptr=&h2;
+
+    h5.a=30;
+    h5.ptr=NULL;
+
+    while(ptr1!=NULL)
+    {
+        printf("%d->",ptr1->a);
+        ptr1=ptr1->ptr;
+    }
+    */
+    //printf("%d",ptr1->a);
+    //ptr1=&h1;
+
+    h2.a=20;
+    h2.ptr=NULL;
+    h3.a=30;
+    h3.ptr=NULL;
+    h1.ptr=&h2;
+    ptr1=&h1;
+    printf("\nappend %p\n",appendNode(ptr1,&h3));
+    printList(ptr1);
+    if(deleteNode(ptr1,20)==0)
+    {
+        printf("\nUpdated");
+    }
+    else
+        printf("\n not found key");
+    printList(ptr1);
+
+    return 0;
+}
+
+void printList(NODE *head)
+{
+
+    while(head!=NULL)
+    {
+        printf("%d->",head->a);
+        head=head->ptr;
+    }
+    printf("NULL");
+}
+
+NODE * appendNode(NODE *head,NODE *nn)
+{
+    NODE *temp=head;
+    if(head==NULL)
+    {
+        head=nn;
+    }
+    else
+    {
+        while(head->ptr!=NULL)
+        {
+            printf("%d->",head->a);
+            head=head->ptr;
+        }
+        printf("\n%d",head->a);
+        head->ptr=nn;
+        head=temp;
+    }
+    return head;
+}
+int  deleteNode(NODE *head,int key)
+{
+    NODE *temp=head;
+    NODE *temp1=NULL;
+    int flag=0;
+    while(head!=NULL)
+    {
+        if(head->a==key)
+        {
+            temp1->ptr=head->ptr;
+            flag=1;
+            break;
+        }
+        temp1=head;
+        head=head->ptr;
+    }
+    if(flag==1)
+    {
+        printf("head %d",head->a);
+        printf("temp1 %d",temp1->a);
+        return 0;
+    }
+    else
+        return 1;
+}
+                                                                                                   
