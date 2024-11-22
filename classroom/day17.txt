@@ -1,0 +1,81 @@
+Stack:
+it goes bottom to top
+the max in stack is fixed is not dynamic and also declare the bottom.
+use dynamic memory with fixed number in stack because the stack max is fixed
+Queue:
+when front reaches max or rare rest front and rare in pop
+and same as stsck queue max is also fixed
+ERROR
+multiple defination of variable error:
+in this case use #pragma once, if not solved
+then do declaration in .c file instead .h file but why
+Questions?
+1. Circular linked list how we know  it reaches first node
+2. use valgrind with employee
+3.no of nodes present
+4.create the employee records dynamically display it using stack operation
+5.expression evaluation for validating phno
+
+#include <stdio.h>
+
+#define MAX 5
+
+int front=0;
+int rear=0;
+
+void dispQ();
+void enqueue(int);
+void dequeue();
+
+int main()
+{
+    int *q;
+    q=(int *)malloc(MAX*sizeof(int));
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+    enqueue(40);
+    enqueue(50);
+    dispQ();
+    return 0;
+}
+
+void dispQ()
+{
+    int i;
+    if(front==rear)
+    {
+        printf("\nEmpty queue\n");
+        return;
+    }
+    printf("\nQueue elements\n");
+    for(i=0;i<rear;i++)
+    {
+        printf("%d ",q[i]);
+    }
+
+}
+
+void enqueue(int val)
+{
+    if(rear==MAX)
+    {
+        printf("\nQueue is full\n");
+        return;
+    }
+    q[rear]=val;
+    rear++;
+}
+
+void dequeue()
+{
+    if(front==rear)
+    {
+        rear=0;
+        front=0;
+        printf("\nQueue is empty\n");
+        return;
+    }
+    printf("\n element %d is deleted\n",q[front]);
+    front++;
+}
