@@ -91,7 +91,8 @@ int server(char *argv[])
 			log_changes(FATAL,"Thread creation failed");
             close(client_sock);
         }
-
+		// Make sure to join the thread so that resources are cleaned up.
+		pthread_join(thread_id, NULL);
     }
     close(server_sock);
     return SUCCESS;
@@ -108,7 +109,8 @@ void add_client_details(long int usernumber, char *password)
     pthread_mutex_lock(&file_mutex);	/* Lock file for thread safety */
 
     FILE *file = fopen(FILE_NAME, "r+");
-    if (file == NULL) {
+    if (file == NULL) 
+	{
 		file = fopen(FILE_NAME, "a+");
         if (file == NULL) {
             perror("Error opening file");
@@ -147,17 +149,37 @@ void add_client_details(long int usernumber, char *password)
 *       Returns         : Nothing.
 ****************************************************************************/
 
-void add_cfss_details(long int snumber,long int rnumber,char *type)
+void add_cfss_details(long int usernumber,long int rnumber,char *type)
 {
     pthread_mutex_lock(&file_mutex);	/* Lock file for thread safety */
 
-    FILE *file = fopen(DETAILS_FILE,"a");
+    FILE *file = fopen(DETAILS_FILE,"r+");
     if(file == NULL)
     {
-        perror("Error opening file");
-		log_changes(FATAL,"Eroor opening file to append");
-		pthread_mutex_unlock(&file_mutex);		/* Unlock mutex before returning */
-        return;
+		file = fopen(FILE_NAME, "a+");
+        if (file == NULL) {
+            perror("Error opening file");
+            pthread_mutex_unlock(&file_mutex);		/* Unlock mutex before returning */
+			log_changes(FATAL,"Error opening file to read");
+            return;
+		}
+    }
+	char line[MAXBUFF];
+    long int snumber=0;
+	int position=0;
+    /* Read each line in the file to check if user number exists */
+    while (fgets(line, sizeof(line), file)) 
+	{
+        sscanf(line, "%ld", &snumber);		/* Read the user number from the line */
+        position=ftell(file)-strlen(line);	/* Get position to overwrite */
+        if (snumber == usernumber)
+        {
+            fseek(file,position,SEEK_SET);	/* Move file pointer to overwrite position */
+            fprintf(file, "%ld,%ld,%s,1\n", snumber, rnumber,type);		/* Update receiver number and type*/
+            fclose(file);	/* Close file */
+			pthread_mutex_unlock(&file_mutex);		/* Unlock mutex */
+            return;		/* User found, exit the function */
+        }
     }
     fprintf(file, "%ld,%ld,%s,1\n",snumber,rnumber,type);	/* Append new entry */
     fclose(file);

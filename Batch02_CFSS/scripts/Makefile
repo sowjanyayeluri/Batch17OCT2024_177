@@ -18,10 +18,10 @@ OBJ_FILES = $(OBJ_DIR)/cmain.o $(OBJ_DIR)/smain.o $(OBJ_DIR)/srvcall.o $(OBJ_DIR
 all: $(EXC)
 
 $(BIN_DIR)/server: $(OBJ_DIR)/srvcall.o $(OBJ_DIR)/smain.o
-	$(CC) $(OBJ_DIR)/srvcall.o $(OBJ_DIR)/smain.o -o $(BIN_DIR)/server -pthread
+	$(CC) $(OBJ_DIR)/srvcall.o $(OBJ_DIR)/smain.o $(OFLAGS) $(BIN_DIR)/server -pthread
 
 $(BIN_DIR)/client: $(OBJ_DIR)/clntcall.o $(OBJ_DIR)/cmain.o
-	$(CC) $(OBJ_DIR)/clntcall.o $(OBJ_DIR)/cmain.o -o $(BIN_DIR)/client
+	$(CC) $(OBJ_DIR)/clntcall.o $(OBJ_DIR)/cmain.o $(OFLAGS) $(BIN_DIR)/client
 
 # Compilation Rules
 $(OBJ_DIR)/cmain.o: $(SRC_DIR)/cmain.c

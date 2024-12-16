@@ -841,3 +841,195 @@ Date: 16/12/2024 Time: 13:00:45 userNumber: 1234567895 - User register successfu
 [INFO]
 Date: 16/12/2024 Time: 13:00:47 userNumber: 1234567895 - User logged in and exited 
 
+[INFO]
+Date: 16/12/2024 Time: 13:45:28 userNumber: 1234567822 - User trying to register 
+
+[DEBUG]
+Date: 16/12/2024 Time: 13:45:39 userNumber: 1234567822 - User register successfully 
+
+[INFO]
+Date: 16/12/2024 Time: 13:47:55 userNumber: 1234567822 - User is busy to lift the call 
+
+[DEBUG]
+Date: 16/12/2024 Time: 13:47:55 userNumber: 1234567822 - call forwarding.... 
+
+[INFO]
+Date: 16/12/2024 Time: 13:50:14 userNumber: 1234567845 - User trying to register 
+
+[WARNING]
+Date: 16/12/2024 Time: 13:50:14 userNumber: 1234567845 - Usernumber already taken while registering 
+
+[INFO]
+Date: 16/12/2024 Time: 13:50:20 userNumber: 1234567845 - User trying to login 
+
+[DEBUG]
+Date: 16/12/2024 Time: 13:50:23 userNumber: 1234567845 - User logged in successfully 
+
+[INFO]
+Date: 16/12/2024 Time: 13:58:25 userNumber: 1234567845 - User trying to login 
+
+[DEBUG]
+Date: 16/12/2024 Time: 13:58:27 userNumber: 1234567845 - User logged in successfully 
+
+[INFO]
+Date: 16/12/2024 Time: 13:58:28 userNumber: 1234567845 - User logged in and exited 
+
+[INFO]
+Date: 16/12/2024 Time: 14:07:30 userNumber: 1234567811 - User trying to register 
+
+[DEBUG]
+Date: 16/12/2024 Time: 14:07:33 userNumber: 1234567811 - User register successfully 
+
+[INFO]
+Date: 16/12/2024 Time: 14:07:35 userNumber: 1234567811 - User logged in and exited 
+
+[INFO]
+Date: 16/12/2024 Time: 16:21:45 userNumber: 1234567892 - User trying to login 
+
+[DEBUG]
+Date: 16/12/2024 Time: 16:21:47 userNumber: 1234567892 - User logged in successfully 
+
+[INFO]
+Date: 16/12/2024 Time: 16:21:49 userNumber: 1234567892 - User logged in and exited 
+
+[INFO]
+Date: 16/12/2024 Time: 16:25:36 userNumber: 1234556789 - User trying to register 
+
+[DEBUG]
+Date: 16/12/2024 Time: 16:25:39 userNumber: 1234556789 - User register successfully 
+
+[INFO]
+Date: 16/12/2024 Time: 16:25:43 userNumber: 1234556789 - User logged in and exited 
+
+[INFO]
+Date: 16/12/2024 Time: 16:25:56 userNumber: 1234556789 - User trying to register 
+
+[WARNING]
+Date: 16/12/2024 Time: 16:25:56 userNumber: 1234556789 - Usernumber already taken while registering 
+
+[INFO]
+Date: 16/12/2024 Time: 16:26:04 userNumber: 1234556789 - User trying to login 
+
+[DEBUG]
+Date: 16/12/2024 Time: 16:26:05 userNumber: 1234556789 - User logged in successfully 
+
+[INFO]
+Date: 16/12/2024 Time: 16:26:45 userNumber: 1234556789 - User is busy to lift the call 
+
+[DEBUG]
+Date: 16/12/2024 Time: 16:26:45 userNumber: 1234556789 - call forwarding.... 
+
+[INFO]
+Date: 16/12/2024 Time: 16:46:59 userNumber: 1234567845 - User trying to register 
+
+[WARNING]
+Date: 16/12/2024 Time: 16:46:59 userNumber: 1234567845 - Usernumber already taken while registering 
+
+[INFO]
+Date: 16/12/2024 Time: 16:47:09 userNumber: 1234567845 - User trying to login 
+
+[DEBUG]
+Date: 16/12/2024 Time: 16:47:10 userNumber: 1234567845 - User logged in successfully 
+
+[INFO]
+Date: 16/12/2024 Time: 16:47:33 userNumber: 1234567892 - User trying to login 
+
+[DEBUG]
+Date: 16/12/2024 Time: 16:47:34 userNumber: 1234567892 - User logged in successfully 
+
+[WARNING]
+Date: 16/12/2024 Time: 16:47:39 userNumber: 1234567892 - User trying to activate without providing forwarding details 
+
+[INFO]
+Date: 16/12/2024 Time: 16:47:55 userNumber: 1234567845 - User is not active to forward the call 
+
+[INFO]
+Date: 16/12/2024 Time: 16:48:08 userNumber: 1234567845 - User trying to login 
+
+[DEBUG]
+Date: 16/12/2024 Time: 16:48:09 userNumber: 1234567845 - User logged in successfully 
+
+[INFO]
+Date: 16/12/2024 Time: 16:48:12 userNumber: 1234567845 - User activated to forward call 
+
+[INFO]
+Date: 16/12/2024 Time: 16:48:24 userNumber: 1234567845 - Waiting to lift the call 
+
+[DEBUG]
+Date: 16/12/2024 Time: 16:48:29 userNumber: 1234567845 - Call forwarding.... 
+
+[INFO]
+Date: 16/12/2024 Time: 16:57:44 userNumber: 1234567845 - User trying to login 
+
+[DEBUG]
+Date: 16/12/2024 Time: 16:57:45 userNumber: 1234567845 - User logged in successfully 
+
+[INFO]
+Date: 16/12/2024 Time: 16:57:47 userNumber: 1234567845 - User deactivated to forward call 
+
+[INFO]
+Date: 16/12/2024 Time: 16:57:59 userNumber: 1234567845 - User trying to login 
+
+[DEBUG]
+Date: 16/12/2024 Time: 16:58:01 userNumber: 1234567845 - User logged in successfully 
+
+[INFO]
+Date: 16/12/2024 Time: 16:58:03 userNumber: 1234567845 - User activated to forward call 
+
+[INFO]
+Date: 16/12/2024 Time: 16:58:10 userNumber: 1234567845 - User trying to login 
+
+[DEBUG]
+Date: 16/12/2024 Time: 16:58:12 userNumber: 1234567845 - User logged in successfully 
+
+[INFO]
+Date: 16/12/2024 Time: 16:58:31 userNumber: 1234567845 - Waiting to lift the call 
+
+[DEBUG]
+Date: 16/12/2024 Time: 16:58:36 userNumber: 1234567845 - Call forwarding.... 
+
+[INFO]
+Date: 16/12/2024 Time: 17:20:44 userNumber: 1234567895 - User trying to login 
+
+[DEBUG]
+Date: 16/12/2024 Time: 17:20:46 userNumber: 1234567895 - User logged in successfully 
+
+[DEBUG]
+Date: 16/12/2024 Time: 17:20:49 userNumber: 1234567895 - Unregistered successfull 
+
+[INFO]
+Date: 16/12/2024 Time: 17:21:00 userNumber: 1234567895 - User trying to login 
+
+[WARNING]
+Date: 16/12/2024 Time: 17:21:00 userNumber: 1234567895 - User trying to login without registering 
+
+[INFO]
+Date: 16/12/2024 Time: 17:21:09 userNumber: 1234567895 - User trying to register 
+
+[DEBUG]
+Date: 16/12/2024 Time: 17:21:12 userNumber: 1234567895 - User register successfully 
+
+[INFO]
+Date: 16/12/2024 Time: 17:21:15 userNumber: 1234567895 - User logged in and exited 
+
+[INFO]
+Date: 16/12/2024 Time: 17:22:57 userNumber: 1234567898 - User trying to login 
+
+[WARNING]
+Date: 16/12/2024 Time: 17:22:57 userNumber: 1234567898 - User trying to login without registering 
+
+[INFO]
+Date: 16/12/2024 Time: 17:23:08 userNumber: 1234567899 - User trying to register 
+
+[DEBUG]
+Date: 16/12/2024 Time: 17:23:12 userNumber: 1234567899 - User register successfully 
+
+[INFO]
+Date: 16/12/2024 Time: 17:23:12 userNumber: 1234567899 - User logged in and exited 
+
+[INFO]
+Date: 16/12/2024 Time: 17:25:55 userNumber: 1234567845 - User trying to login 
+
+[DEBUG]
+Date: 16/12/2024 Time: 17:25:56 userNumber: 1234567845 - User logged in successfully 
+
