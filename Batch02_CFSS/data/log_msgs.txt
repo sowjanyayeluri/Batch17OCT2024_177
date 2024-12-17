@@ -537,3 +537,12 @@ Date: 17/12/2024 Time: 07:31:46 userNumber: 9640027582 - User register successfu
 [INFO]
 Date: 17/12/2024 Time: 07:31:48 userNumber: 9640027582 - User logged in and exited 
 
+[INFO]
+Date: 17/12/2024 Time: 11:58:44 userNumber: 2323454567 - User trying to register 
+
+[DEBUG]
+Date: 17/12/2024 Time: 11:58:50 userNumber: 2323454567 - User register successfully 
+
+[INFO]
+Date: 17/12/2024 Time: 11:58:53 userNumber: 2323454567 - User logged in and exited 
+

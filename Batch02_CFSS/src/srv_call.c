@@ -327,7 +327,7 @@ int is_registered(long int sphno)
         perror("Error opening file");
 		log_changes(FATAL,"Error opening file to read");
 		pthread_mutex_unlock(&file_mutex);	/* Unlocking file before returning */
-        return 2;	/* Return error code */
+        return 1;	/* Return error code */
     }
 
 	/* Read the file line by line to find the user number */
@@ -338,13 +338,6 @@ int is_registered(long int sphno)
 		/* If the user number matches, update status or return appropriate response */
         if(snumber == sphno)
         {
-            if(current_status==0)	/* If the user is inactive */
-            {
-                pthread_mutex_unlock(&file_mutex);
-                fclose(file);
-                return 1;	/* User is active */
-            }
-
 			/* Move file pointer back to update the user's status to inactive */
             position=ftell(file)-strlen(line);
             fseek(file, position, SEEK_SET);
@@ -797,17 +790,22 @@ void deactivate_client()
 
 void unregister_client()
 {
-    if(is_registered(sphno))
+	result=is_registered(sphno);
+    if(result==0)
     {
-		/* User is already registered */
-        printf("User already registered.\n");
-		log_changes(INFO,"User already registered");
-        return;
+		/* Unregister the user */
+     	printf("Unregistered successfully.\n");
+		log_changes(DEBUG,"Unregistered successfull");
     }
+	else if(result==-1)
+	{
+		printf("User not registered.\n");
+		log_changes(DEBUG,"User not registered");
+	}
+	else
+	{
+	}
 
-	/* Unregister the user */
-    printf("Unregistered successfully.\n");
-	log_changes(DEBUG,"Unregistered successfull");
 }
 
 /****************************************************************************
