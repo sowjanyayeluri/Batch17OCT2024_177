@@ -26,14 +26,14 @@
 
 int main(int argc,char *argv[])
 {
-	 /* Check if the number of command-line arguments is exactly 3 */
-	if(argc != 3)
+    /* Check if the number of command-line arguments is exactly 3 */
+    if(argc != 3)
     {
         printf("\nEntered less or more arguments <PORT NO> <IP Address>\n");
         return FAILURE;	  	/* Return FAILURE if arguments count is not 3 */
     }
-	 /* Start the server with the provided arguments (port and IP address) */
-	server(argv);	/* Calling the server function with the arguments */
-	return SUCCESS;
+    /* Start the server with the provided arguments (port and IP address) */
+    server(argv);	/* Calling the server function with the arguments */
+    return SUCCESS;
 
 }
