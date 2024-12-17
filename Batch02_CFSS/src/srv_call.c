@@ -16,7 +16,7 @@
 *                       Header Files
 ******************************************************************************/
 #include <common.h>
-#include <srvcall.h>
+#include <srv_call.h>
 
 /* Mutex for file access synchronization to prevent race conditions */
 pthread_mutex_t file_mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -176,12 +176,14 @@ void add_cfss_details(long int usernumber,long int rnumber,char *type)
         {
             fseek(file,position,SEEK_SET);	/* Move file pointer to overwrite position */
             fprintf(file, "%ld,%ld,%s,1\n", snumber, rnumber,type);		/* Update receiver number and type*/
+			printf("Forwarding details updated successfully.\n");
             fclose(file);	/* Close file */
 			pthread_mutex_unlock(&file_mutex);		/* Unlock mutex */
             return;		/* User found, exit the function */
         }
     }
-    fprintf(file, "%ld,%ld,%s,1\n",snumber,rnumber,type);	/* Append new entry */
+    fprintf(file, "%ld,%ld,%s,1\n",usernumber,rnumber,type);	/* Append new entry */
+	printf("Forwarding details added successfully.\n");
     fclose(file);
 
     pthread_mutex_unlock(&file_mutex);		/* Unlock mutex */
@@ -711,7 +713,6 @@ void forwarding_details(int client_sock)
 
 	/* Call to add forwarding details to the file */
     add_cfss_details(sphno, rphno, type);
-	printf("Forwarding details updated successfully.\n");
 }
 
 /****************************************************************************

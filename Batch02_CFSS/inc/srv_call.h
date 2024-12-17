@@ -1,6 +1,6 @@
 /*************************************************************************
 *  
-*  FILE NAME    : srvcall.h
+*  FILE NAME    : srv_call.h
 *  DESCRIPTION  : Header file for server-side functions. Defines macros, global variables,
 *				  enum for log levels, and function declarations related to client
 *				  management and call forwarding.
@@ -12,7 +12,7 @@
 /* Macros of file Paths for Data and Logs*/
 #define FILE_NAME "../data/users.csv"
 #define DETAILS_FILE "../data/CFSS.csv"
-#define LOG_FILE "../data/logMsgs.txt"
+#define LOG_FILE "../data/log_msgs.txt"
 
 /* Global Variables*/
 long int sphno;

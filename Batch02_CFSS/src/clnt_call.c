@@ -1,5 +1,23 @@
+/************************************************************************* 
+*
+*  FILE NAME    : clnt_call.c
+*
+*  DESCRIPTION  : Contains functions to handle client-side operations
+*                 like user registration, login, and call forwarding.
+*
+*  DATE          NAME
+*
+*  10-DEC-24    Batch02
+*
+**************************************************************************/
+
+
+/*****************************************************************************
+*                       Header Files
+******************************************************************************/
+
 #include <common.h>
-#include <clntcall.h>
+#include <clnt_call.h>
 
 /****************************************************************************
 *       Function Name   : client
@@ -11,21 +29,19 @@
 
 int client(char *argv[]) {
 
-	/* port_no: Stores the port number to connect to the server
-	sock: Server id
-	option: To read user's choice*/
     int port_no=0,sock=0,option=0;
 
 	/*ip_addr: A character array that stores the server's IP addres*/
     char ip_addr[strlen(argv[2])];
 
+	/* Extract port number and IP address from arguments */
     port_no = atoi(argv[1]);
     strcpy(ip_addr,argv[2]);
 	
-	 /* server_addr: A struct to store the server's address information (IP, port, etc.)*/
+	/* server_addr: Struct to store server address (IP, port, etc.) */
     struct sockaddr_in server_addr;
 
-    /* Create socket: Using AF_INET (IPv4), SOCK_STREAM (TCP), and protocol 0 (default)*/
+    /* Create socket with IPv4 and TCP protocol */
     sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0) {
         perror("Socket creation failed");
@@ -45,15 +61,20 @@ int client(char *argv[]) {
         return FAILURE;
     }
     
+	/* Display the main menu for user to choose an option */
 	printf("=============== MAIN MENU ===============");
 	printf("\n1. Register\n2. Login\n3. Forward call\n0. Exit\n");
 	printf("Enter the choice: ");
 
+	/* Get user choice and send it to the server */
     scanf("%d", &option);
     getchar();
     send(sock, &option, sizeof(option), 0);
+
+	/* Process the option chosen by the user */
     main_menu(sock, option);
 
+	/* Close the socket after interaction */
     close(sock);
     return SUCCESS;
 }
@@ -68,23 +89,24 @@ int client(char *argv[]) {
 
 void main_menu(int sock, int option)
 {
+	/* Switch case to handle user choice from the menu */
     switch(option)
     {
         case 1:
-            regist(sock);
-            edit_menu(sock);
+            regist(sock);	/* Call the registration function */
+            edit_menu(sock);	/* Edit menu after registration */
             break;
         case 2:
-            login(sock);
-            edit_menu(sock);
+            login(sock);	/* Call the login function */
+            edit_menu(sock);	/* Edit menu after login */
             break;
         case 3:
-            forward_call(sock);
+            forward_call(sock);	   /* Call the forward call function */
             break;
 		case 0:
-			break;
+			break;	/* Exit if option is 0 */
         default:
-            printf("\nInvalid option\n");
+            printf("\nInvalid option\n");	/* Handle invalid menu option */
 			break;
     }
 }
@@ -98,78 +120,86 @@ void main_menu(int sock, int option)
 
 void regist(int sock)
 {
-	int attempts=0;/*For number of failed registration attempts*/
+	int attempts=0;	  /*For number of failed registration attempts*/
 	printf("\n============ REGISTRATION PAGE ===============\n");
 	printf("Start registering\n");
     while(1)
     {
-		if(attempts<3)
+		if(attempts<3)	  /* Allow up to 3 failed attempts */
 		{
 			printf("Enter the usernumber: ");
-        	if(scanf("%ld", &phno) == 1)
+        	if(scanf("%ld", &phno) == 1)	/* Input user number (phone number) */
         	{
             	getchar();
 			
+				/* Validate if phone number is a 10-digit long number */
             	if(phno >= 1000000000 && phno <= 9999999999)
             	{
-                	send(sock, &phno, sizeof(phno), 0);
-                	break;
+                	send(sock, &phno, sizeof(phno), 0);	  /* Send phone number to the server */
+                	break;	/* Exit loop if valid phone number is entered */
             	}
             	else
             	{
-					attempts++;
+					attempts++;	  /* Increment attempts on invalid phone number */
                 	printf("\nEnter 10 digits\n");
             	}
         	}
         	else
         	{
-				attempts++;
+				attempts++;	 /* Increment attempts on non-numeric input */
             	printf("\nEnter only long integers\n");
             	getchar();
         	}
 		}
 		else
 		{
-			printf("Maximum limit exceeded.\nTry again later.\n");
+			printf("Maximum limit exceeded.\nTry again later.\n");	  /* Exit after 3 failed attempts */
 			exit(EXIT_FAILURE);
 		}
     }
+
+	/* Reset attempts counter and receive server response */
 	attempts=0;
     recv(sock, buffer, sizeof(buffer), 0);
 
+	/* Check if user number is already registered */
     if(strcmp(buffer, "Usernumber already taken.\nPlease log in.\n") == 0)
     {
-        login(sock);
+        login(sock);	/* Redirect to login if user number is already taken */
         return;
     }
+
+	/* Check if the server asks for password */
     if (strcmp(buffer, "Enter password: ") == 0)
     {
         while(1)
         {
-			if(attempts<3)
+			if(attempts<3)	  /* Allow up to 3 failed password attempts */
 			{
             	printf("%s", buffer);
            	 	fgets(password, MAXBUFF, stdin);
             	password[strlen(password)-1] = '\0';
-            	send(sock, password, sizeof(password), 0);
+            	send(sock, password, sizeof(password), 0);	 /* Send password to server */
            	 	printf("Enter confirm password: ");
             	fgets(conf_password, MAXBUFF, stdin);
             	conf_password[strlen(conf_password) - 1] = '\0';
-            	send(sock, conf_password, sizeof(conf_password), 0);
+            	send(sock, conf_password, sizeof(conf_password), 0);	/* Send confirm password */
+
+				/* Receive server response */
             	recv(sock, buffer, sizeof(buffer), 0);
             	if (strcmp(buffer, "Registration successful\n") == 0)
             	{
-                	break;
+                	break;	  /* Exit loop on successful registration */
             	}
             	else
             	{
-					printf("\nPassword mismatch! Please try again.\n");
-					attempts++;
+					printf("\nPassword mismatch! Please try again.\n");	  /* Handle password mismatch */
+					attempts++;	  /* Increment attempts */
             	}
 			}
 			else
 			{
-				printf("Maximum limit exceeded.\nTry again later.\n");
+				printf("Maximum limit exceeded.\nTry again later.\n");	  /* Exit after 3 failed attempts */
 				exit(EXIT_FAILURE);
 			}
         }
@@ -185,73 +215,83 @@ void regist(int sock)
 
 void login(int sock)
 {
-	int attempts=0; ;/*For number of failed login attempts*/
+	int attempts=0; ;	/*For number of failed login attempts*/
 	printf("\n=============== LOGIN PAGE ===============\n");
     printf("\nStart logging in\n");
     memset(buffer, 0, sizeof(buffer));
     while(1)
     {
-		if(attempts<3)
+		if(attempts<3)	  /* Allow up to 3 failed login attempts */
 		{
 			printf("Enter the number: ");
-        	if(scanf("%ld", &phno) == 1)
+        	if(scanf("%ld", &phno) == 1)	/* Input phone number (user identification) */
         	{
             	getchar();
+
+				/* Validate if the phone number is a 10-digit long number */
             	if(phno >= 1000000000 && phno <= 9999999999)
             	{
-                	send(sock, &phno, sizeof(phno), 0);
-                	break;
+                	send(sock, &phno, sizeof(phno), 0);	  /* Send phone number to the server */
+                	break;	  /* Break the loop when phone number is valid */
             	}
             	else
             	{
-					attempts++;
+					attempts++;	  /* Increment attempts if the number is invalid */
                 	printf("\nEnter 10 digits\n");
             	}
         	}
         	else
         	{
-				attempts++;
+				attempts++;	 /* Increment attempts if input is not a valid long integer */
             	printf("\nEnter only long integers\n");
             	getchar();
         	}
 		}
 		else
 		{
-			printf("Maximum limit exceeded.\nTry again later.\n");
+			printf("Maximum limit exceeded.\nTry again later.\n");	 /* Exit after 3 failed attempts */
 			exit(EXIT_FAILURE);
 		}
     }
+
+	/* Reset attempts counter after phone number is sent */
 	attempts=0;
-    recv(sock, buffer, sizeof(buffer), 0);
+    recv(sock, buffer, sizeof(buffer), 0);	 /* Receive server's response */
+
+	/* Check if the user is not registered */
     if(strcmp(buffer, "User is not registered\n") == 0)
     {
-        regist(sock);
+        regist(sock);	/* If user is not registered, call registration function */
         return;
     }
+
+	/* Check if the server asks for the password */
     if(strcmp(buffer, "Enter password: ") == 0)
     {
         while(1)
         {
-			if(attempts<3)
+			if(attempts<3)	 /* Allow up to 3 failed password attempts */
 			{
             	printf("%s", buffer);
             	fgets(password, MAXBUFF, stdin);
             	password[strlen(password)-1] = '\0';
-            	send(sock, password, sizeof(password), 0);
-            	recv(sock, buffer, sizeof(buffer), 0);
+            	send(sock, password, sizeof(password), 0);	 /* Send password to the server */
+            	recv(sock, buffer, sizeof(buffer), 0);	 /* Receive response from server */
+
+				/* Check if login was successful */
             	if(strcmp(buffer, "Logged in successfully.\n") == 0)
             	{
-                	break;
+                	break;	 /* Exit loop on successful login */
             	}	
            	 	else
             	{
-					attempts++;
+					attempts++;	 /* Increment attempts if password mismatch */
 					printf("\nPassword mismatch! Please re-enter.\n");
             	}
 			}
 			else
 			{
-				printf("Maximum limit exceeded.\nTry again later.\n");
+				printf("Maximum limit exceeded.\nTry again later.\n");	 /* Exit after 3 failed password attempts */
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -268,27 +308,31 @@ void login(int sock)
 void edit_menu(int sock)
 {
     int option=0; /* User selected option*/
+
+	/* Display the edit menu for the user */
 	printf("============ EDIT MENU ===============");
 	printf("\n1. Forwarding details.\n2. Activate.\n3. Deactivate.\n4. Unregister.\n0. Exit\n");
     printf("Enter the choice: ");
     scanf("%d", &option);
     getchar();
-    send(sock, &option, sizeof(option), 0);
+    send(sock, &option, sizeof(option), 0);	  /* Send selected option to the server */
+
+	/* Handle different menu options based on user input */
     switch(option)
     {
         case 1:
-            give_details(sock);
+            give_details(sock);	  /* Call function for forwarding details */
             break;
         case 2:
-            break;
+            break;	  /* Placeholder for activating */
         case 3:
-            break;
+            break;	  /* Placeholder for deactivating */
         case 4:
-            break;
+            break;	  /* Placeholder for unregistering */
 		case 0:
-			break;
+			break;	  /* Exit the menu */
 		default:
-			printf("Entered invalid option.\n");
+			printf("Entered invalid option.\n");	/* Handle invalid menu option */
 			break;
     }
 }
@@ -310,56 +354,59 @@ void give_details(int sock)
 
     while(1)
     {
-		if(attempts<3)
+		if(attempts<3)	 /* Allow up to 3 failed attempts for entering requested client number */
 		{
         	printf("Enter requested client number: ");
-        	if(scanf("%ld", &rphno) == 1)
+        	if(scanf("%ld", &rphno) == 1)	/* Read requested client phone number */
         	{
             	getchar();
-            	if(rphno >= 1000000000 && rphno <= 9999999999)
+            	if(rphno >= 1000000000 && rphno <= 9999999999)	 /* Validate phone number format */
             	{
-                	send(sock, &rphno, sizeof(rphno), 0);
-                	break;
+                	send(sock, &rphno, sizeof(rphno), 0);	/* Send phone number to the server */
+                	break;	 /* Break the loop when phone number is valid */
             	}
             	else
             	{
-					attempts++;
+					attempts++;	  /* Break the loop when phone number is valid */
                 	printf("\nEnter 10 digits\n");
             	}
         	}
         	else
         	{
-				attempts++;
+				attempts++;	  /* Increment attempts for non-numeric input */
             	printf("\nEnter only long integers\n");
             	getchar();
         	}
 		}
 		else
 		{
-			printf("Maximum limit exceeded.\nTry again later.\n");
+			printf("Maximum limit exceeded.\nTry again later.\n");	 /* Exit after 3 failed attempts */
 			exit(EXIT_FAILURE);
 		}
     }
+
+	/* Display forwarding options */
     printf("\n##### Forwarding types #####\n");
     printf("1.Unconditional\n2.No reply\n3.Busy\n");
-	attempts=0;
+	attempts=0;	  /* Reset attempts for selecting forwarding type */
     while(1)
     {
-		if(attempts<3)
+		if(attempts<3)	  /* Allow up to 3 failed attempts for entering forwarding type */
 		{
         	printf("\nEnter the choice: ");
-        	scanf("%d", &type_choice);
-        	if(type_choice < 4 && type_choice > 0)
+        	scanf("%d", &type_choice);	  /* Read user's choice for forwarding type */
+
+        	if(type_choice < 4 && type_choice > 0)	  /* Validate forwarding type choice (1-3) */
         	{
-            	send(sock, &type_choice, sizeof(type_choice), 0);
-            	break;
+            	send(sock, &type_choice, sizeof(type_choice), 0);	/* Send choice to the server */
+            	break;	 /* Exit loop on valid input */
         	}
-			attempts++;
+			attempts++;	  /* Increment attempts for invalid input */
         	printf("\nEnter between 1 to 3");
 		}
 		else
 		{
-			printf("Maximum limit exceeded.\nTry again later.\n");
+			printf("Maximum limit exceeded.\nTry again later.\n");	 /* Exit after 3 failed attempts */
 			break;
 		}
     }
@@ -374,36 +421,36 @@ void give_details(int sock)
 
 void forward_call(int sock)
 {
-	int attempts=0;/*for number of invlaid input attempts*/
+	int attempts=0;	  /*for number of invlaid input attempts*/
     while(1)
     {
-		if(attempts<3)
+		if(attempts<3)	 /* Allow up to 3 failed attempts for entering requested client number */
 		{
         	printf("Enter requested client number: ");
-        	if(scanf("%ld", &phno) == 1)
+        	if(scanf("%ld", &phno) == 1)	/* Read requested client phone number */
         	{
             	getchar();
-            	if(phno >= 1000000000 && phno <= 9999999999)
+            	if(phno >= 1000000000 && phno <= 9999999999)	/* Validate phone number format */
             	{
-                	send(sock, &phno, sizeof(phno), 0);
-                	break;
+                	send(sock, &phno, sizeof(phno), 0);	  /* Send phone number to the server */
+                	break;	  /* Exit loop when phone number is valid */
             	}
             	else
             	{
-					attempts++;
+					attempts++;	  /* Increment attempts for invalid phone number */
                 	printf("\nEnter 10 digits\n");
             	}
         	}
         	else
         	{
-				attempts++;
+				attempts++;	  /* Increment attempts for non-numeric input */
             	printf("\nEnter only long integers\n");
             	getchar();
         	}
     	}
 		else
 		{
-			printf("Maximum limit exceeded.\nTry again later.\n");
+			printf("Maximum limit exceeded.\nTry again later.\n");	 /* Exit after 3 failed attempts */
 			exit(EXIT_FAILURE);
 		}
 	}

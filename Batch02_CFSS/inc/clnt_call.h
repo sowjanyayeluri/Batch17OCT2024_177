@@ -1,6 +1,6 @@
 /*************************************************************************
 *  
-*  FILE NAME    : client.h
+*  FILE NAME    : clnt_call.h
 *  DESCRIPTION  : Header file for client-side functions and data structures.
 *                 Defines variables for managing client data and function 
 *                 declarations related to client actions like login, registration, and call forwarding.
