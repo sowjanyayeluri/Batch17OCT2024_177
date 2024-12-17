@@ -156,7 +156,7 @@ void add_cfss_details(long int usernumber,long int rnumber,char *type)
     FILE *file = fopen(DETAILS_FILE,"r+");
     if(file == NULL)
     {
-		file = fopen(FILE_NAME, "a+");
+		file = fopen(DETAILS_FILE, "a+");
         if (file == NULL) {
             perror("Error opening file");
             pthread_mutex_unlock(&file_mutex);		/* Unlock mutex before returning */
@@ -208,6 +208,7 @@ int find_usernumber(long int usernumber, char *password)
     FILE *file = fopen(FILE_NAME, "r");
     if (file == NULL) {
         perror("Error opening file to read");
+		log_changes(FATAL,"Error opening file to read");
 		pthread_mutex_unlock(&file_mutex);		/* Unlock mutex before returning */
         return 0;	/* Return FAILURE if file error */
     }
