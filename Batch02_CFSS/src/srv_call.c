@@ -876,7 +876,7 @@ void forward_call(int client_sock)
 }
 
 /****************************************************************************
-*       Function Name   : long_changes
+*       Function Name   : log_changes
 *       Description     : Logs changes made by the user, including the date, time, 
 *                         log level, user number, and the function where the change occurred.
 *       Returns         : Nothing.
