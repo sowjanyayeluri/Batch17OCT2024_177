@@ -40,19 +40,20 @@ int server(char *argv[])
     struct sockaddr_in server_address, client_address;
     pthread_t thread_id;		/* Thread ID for client handler */
 
-	/* Create master socket */
+    /* Create master socket */
     server_sock = socket(AF_INET, SOCK_STREAM, 0);
-    if (server_sock < 0) {
+    if (server_sock < 0) 
+    {
         perror("Socket failed");
-		log_changes(FATAL,"Socket creation failed");
+	log_changes(FATAL,"Socket creation failed");
         exit(EXIT_FAILURE);
     }
 
     int opt = 1;
-	/* Set socket options for reuse of address */
+    /* Set socket options for reuse of address */
     if (setsockopt(server_sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
         perror("setsockopt failed");
-		log_changes(FATAL,"setsockopt creation failed");
+	log_changes(FATAL,"setsockopt creation failed");
         close(server_sock);
         return FAILURE;
     }
@@ -65,7 +66,7 @@ int server(char *argv[])
     /* Bind the socket to the address and port */
     if (bind(server_sock, (struct sockaddr *)&server_address, sizeof(server_address)) < 0) {
         perror("Bind failed");
-		log_changes(FATAL,"Binding Failed");
+	log_changes(FATAL,"Binding Failed");
         exit(EXIT_FAILURE);
     }
 
@@ -76,11 +77,11 @@ int server(char *argv[])
     addr_len = sizeof(client_address);
     while (1) 
 	{
-		/* Accept a new connection */
+	/* Accept a new connection */
         client_sock = accept(server_sock, (struct sockaddr *)&client_address, (socklen_t *)&addr_len);
         if (client_sock < 0) {
             perror("Accept failed");
-			log_changes(FATAL,"Accept Failed");
+	    log_changes(FATAL,"Accept Failed");
             continue;
         }
 
@@ -88,7 +89,7 @@ int server(char *argv[])
         /* Create a new thread to handle the client */
         if (pthread_create(&thread_id, NULL, main_menu, (void *)&client_sock) != 0) {
             perror("Thread creation failed");
-			log_changes(FATAL,"Thread creation failed");
+	    log_changes(FATAL,"Thread creation failed");
             close(client_sock);
         }
 		// Make sure to join the thread so that resources are cleaned up.
@@ -110,21 +111,21 @@ void add_client_details(long int usernumber, char *password)
 
     FILE *file = fopen(FILE_NAME, "r+");
     if (file == NULL) 
-	{
-		file = fopen(FILE_NAME, "a+");
+    {
+	file = fopen(FILE_NAME, "a+");
         if (file == NULL) {
             perror("Error opening file");
             pthread_mutex_unlock(&file_mutex);		/* Unlock mutex before returning */
-			log_changes(FATAL,"Error opening file to read");
+	    log_changes(FATAL,"Error opening file to read");
             return;
-		}
+	}
     }
     char line[MAXBUFF];
     long int snumber=0;
-	int position=0;
+    int position=0;
     /* Read each line in the file to check if user number exists */
     while (fgets(line, sizeof(line), file)) 
-	{
+    {
         sscanf(line, "%ld", &snumber);		/* Read the user number from the line */
         position=ftell(file)-strlen(line);	/* Get position to overwrite */
         if (snumber == usernumber)
@@ -132,12 +133,12 @@ void add_client_details(long int usernumber, char *password)
             fseek(file,position,SEEK_SET);	/* Move file pointer to overwrite position */
             fprintf(file, "%ld,%s,1\n", snumber, password);		/* Update password and status */
             fclose(file);	/* Close file */
-			pthread_mutex_unlock(&file_mutex);		/* Unlock mutex */
+	    pthread_mutex_unlock(&file_mutex);		/* Unlock mutex */
             return;		/* User found, exit the function */
         }
-    }
+     }
 	
-	/* If user not found, add new entry to the file */
+    /* If user not found, add new entry to the file */
     fprintf(file, "%ld,%s,1\n", usernumber, password);
     fclose(file);
     pthread_mutex_unlock(&file_mutex);		/* Unlock mutex */
@@ -156,34 +157,34 @@ void add_cfss_details(long int usernumber,long int rnumber,char *type)
     FILE *file = fopen(DETAILS_FILE,"r+");
     if(file == NULL)
     {
-		file = fopen(DETAILS_FILE, "a+");
+	file = fopen(DETAILS_FILE, "a+");
         if (file == NULL) {
             perror("Error opening file");
             pthread_mutex_unlock(&file_mutex);		/* Unlock mutex before returning */
-			log_changes(FATAL,"Error opening file to read");
+	    log_changes(FATAL,"Error opening file to read");
             return;
-		}
+	}
     }
-	char line[MAXBUFF];
+    char line[MAXBUFF];
     long int snumber=0;
-	int position=0;
+    int position=0;
     /* Read each line in the file to check if user number exists */
     while (fgets(line, sizeof(line), file)) 
-	{
+    {
         sscanf(line, "%ld", &snumber);		/* Read the user number from the line */
         position=ftell(file)-strlen(line);	/* Get position to overwrite */
         if (snumber == usernumber)
         {
             fseek(file,position,SEEK_SET);	/* Move file pointer to overwrite position */
             fprintf(file, "%ld,%ld,%s,1\n", snumber, rnumber,type);		/* Update receiver number and type*/
-			printf("Forwarding details updated successfully.\n");
+	    printf("Forwarding details updated successfully.\n");
             fclose(file);	/* Close file */
-			pthread_mutex_unlock(&file_mutex);		/* Unlock mutex */
+	    pthread_mutex_unlock(&file_mutex);		/* Unlock mutex */
             return;		/* User found, exit the function */
         }
     }
     fprintf(file, "%ld,%ld,%s,1\n",usernumber,rnumber,type);	/* Append new entry */
-	printf("Forwarding details added successfully.\n");
+    printf("Forwarding details added successfully.\n");
     fclose(file);
 
     pthread_mutex_unlock(&file_mutex);		/* Unlock mutex */
@@ -208,8 +209,8 @@ int find_usernumber(long int usernumber, char *password)
     FILE *file = fopen(FILE_NAME, "r");
     if (file == NULL) {
         perror("Error opening file to read");
-		log_changes(FATAL,"Error opening file to read");
-		pthread_mutex_unlock(&file_mutex);		/* Unlock mutex before returning */
+	log_changes(FATAL,"Error opening file to read");
+	pthread_mutex_unlock(&file_mutex);		/* Unlock mutex before returning */
         return 0;	/* Return FAILURE if file error */
     }
 
@@ -222,17 +223,17 @@ int find_usernumber(long int usernumber, char *password)
             if(strcmp(password, filePassword) == 0)
             {
                 fclose(file);	/* Close file on success */
-				pthread_mutex_unlock(&file_mutex);		/* Unlock mutex */
+		pthread_mutex_unlock(&file_mutex);		/* Unlock mutex */
                 return 2;	/* Return 2 for successful login */
             }
             fclose(file);
-			pthread_mutex_unlock(&file_mutex);
+	    pthread_mutex_unlock(&file_mutex);
             return 1;	/* Return 1 for password mismatch */
         }
     }
 
     fclose(file);
-	pthread_mutex_unlock(&file_mutex);
+    pthread_mutex_unlock(&file_mutex);
     return -1;	/* Return -1 if user not found */
 }
 
@@ -257,15 +258,15 @@ int is_active(long int sphno,int status)
     if(file == NULL)
     {
         perror("Error opening file");
-		log_changes(FATAL,"Error opening file to read");
-		pthread_mutex_unlock(&file_mutex);	/* Unlock mutex before returning */
+	log_changes(FATAL,"Error opening file to read");
+	pthread_mutex_unlock(&file_mutex);	/* Unlock mutex before returning */
         return 2;	/* Return 2 for file error */
     }
 
     while (fgets(line, sizeof(line), file)) 
-	{
+    {
         sscanf(line, "%ld,%ld,%[^,],%d", &snumber, &rnumber, type, &current_active);
-		position=ftell(file)-strlen(line);	/* Get position to overwrite */
+	position=ftell(file)-strlen(line);	/* Get position to overwrite */
         if(snumber == sphno)
         {
             if (status==1)
@@ -279,18 +280,18 @@ int is_active(long int sphno,int status)
 
                 fseek(file, position, SEEK_SET);
                 fprintf(file, "%ld,%ld,%s,%d\n", snumber, rnumber, type, status);	/* Update status */
-				pthread_mutex_unlock(&file_mutex);	/* Unlock mutex */
+		pthread_mutex_unlock(&file_mutex);	/* Unlock mutex */
                 fclose(file);
                 return 0;	/* Return 0 if status updated */
             }
             if(current_active==1)
             {
-				fseek(file,position,SEEK_SET);
-				fprintf(file,"%ld,%ld,%s,%d\n",snumber,rnumber,type,status);	/* Deactivate user */
-				fflush(file);
-				fclose(file);
-				pthread_mutex_unlock(&file_mutex);	/* Unlock mutex */
-				return 0;
+		fseek(file,position,SEEK_SET);
+		fprintf(file,"%ld,%ld,%s,%d\n",snumber,rnumber,type,status);	/* Deactivate user */
+		fflush(file);
+		fclose(file);
+		pthread_mutex_unlock(&file_mutex);	/* Unlock mutex */
+		return 0;
             }
             pthread_mutex_unlock(&file_mutex);	/* Unlock mutex before returning */
             fclose(file);
@@ -298,8 +299,8 @@ int is_active(long int sphno,int status)
         }
 
     }
-	fclose(file);
-	pthread_mutex_unlock(&file_mutex);	/* Unlock mutex before returning */
+    fclose(file);
+    pthread_mutex_unlock(&file_mutex);	/* Unlock mutex before returning */
     return -1;	/* Return -1 if user not found */
 }
 
@@ -321,25 +322,25 @@ int is_registered(long int sphno)
     char password[MAXBUFF];
     int current_status=0,position=0;
 
-	/* Open the file in read and write mode */
+    /* Open the file in read and write mode */
     FILE *file = fopen(FILE_NAME,"r+");
     if(file == NULL)
     {
         perror("Error opening file");
-		log_changes(FATAL,"Error opening file to read");
-		pthread_mutex_unlock(&file_mutex);	/* Unlocking file before returning */
+	log_changes(FATAL,"Error opening file to read");
+	pthread_mutex_unlock(&file_mutex);	/* Unlocking file before returning */
         return 1;	/* Return error code */
     }
 
-	/* Read the file line by line to find the user number */
+    /* Read the file line by line to find the user number */
     while (fgets(line, sizeof(line), file)) 
-	{
+    {
         sscanf(line, "%ld,%[^,],%d", &snumber, password, &current_status);
 		
-		/* If the user number matches, update status or return appropriate response */
+	/* If the user number matches, update status or return appropriate response */
         if(snumber == sphno)
         {
-			/* Move file pointer back to update the user's status to inactive */
+	    /* Move file pointer back to update the user's status to inactive */
             position=ftell(file)-strlen(line);
             fseek(file, position, SEEK_SET);
             fprintf(file, "%ld,%s,0\n", snumber, password);	  /* Update the user to inactive */
@@ -349,8 +350,8 @@ int is_registered(long int sphno)
         }
 
     }
-	fclose(file);
-	pthread_mutex_unlock(&file_mutex);
+    fclose(file);
+    pthread_mutex_unlock(&file_mutex);
     return -1;	/* User not found */
 }
 
@@ -364,42 +365,42 @@ int is_registered(long int sphno)
 
 int is_sphno_exits(long int sphno)
 {
-	pthread_mutex_lock(&file_mutex);	/* Locking for thread safety */
+    pthread_mutex_lock(&file_mutex);	/* Locking for thread safety */
 
     char line[MAXBUFF],type[MAXBUFF];
     long int snumber=0;
     int active=0;
 
-	/* Open the details file in read mode */
+    /* Open the details file in read mode */
     FILE *file = fopen(DETAILS_FILE,"r");
     if(file == NULL)
     {
         perror("Error opening file");
-		log_changes(FATAL,"Error opening file to read");
-		pthread_mutex_unlock(&file_mutex);	/* Unlock file access before returning */
+	log_changes(FATAL,"Error opening file to read");
+	pthread_mutex_unlock(&file_mutex);	/* Unlock file access before returning */
         return 0;	/* Return error code */
     }
 
-	/* Read file line by line to find the user number */
-	while(fgets(line, sizeof(line), file))
-	{
-		sscanf(line, "%ld,%ld,%[^,],%d", &snumber, &rphno, type, &active);
+    /* Read file line by line to find the user number */
+    while(fgets(line, sizeof(line), file))
+    {
+	sscanf(line, "%ld,%ld,%[^,],%d", &snumber, &rphno, type, &active);
 
-		/* If the user number matches, return active or inactive status */
-		if(snumber==sphno)
+	/* If the user number matches, return active or inactive status */
+	if(snumber==sphno)
+	{
+		if(active==1)	/* If the user is active */
 		{
-			if(active==1)	/* If the user is active */
-			{
-				pthread_mutex_unlock(&file_mutex);
-                fclose(file);
-                return 2;	/* Return active status */
-			}
 			pthread_mutex_unlock(&file_mutex);
-    		fclose(file);
-			return 1;	/* Return inactive status */
+                	fclose(file);
+                	return 2;	/* Return active status */
 		}
+		pthread_mutex_unlock(&file_mutex);
+    		fclose(file);
+		return 1;	/* Return inactive status */
 	}
-	pthread_mutex_unlock(&file_mutex);
+    }
+    pthread_mutex_unlock(&file_mutex);
     fclose(file);
     return -1;	/* User not found */
 
@@ -418,22 +419,22 @@ char *check_forwarding_type(long int sphno)
 
     char line[MAXBUFF];
     long int snumber=0,rnumber=0;
-	int active=0;
+    int active=0;
     static char type[MAXBUFF];	/* Static variable to return the type */
 
-	/* Open the details file in read mode */
+    /* Open the details file in read mode */
     FILE *file = fopen(DETAILS_FILE,"r");
     if(file == NULL)
     {
         perror("Error opening file");
-		log_changes(FATAL,"Error opening file to read");
-		pthread_mutex_unlock(&file_mutex);	/* Unlock file access before returning */
+	log_changes(FATAL,"Error opening file to read");
+	pthread_mutex_unlock(&file_mutex);	/* Unlock file access before returning */
         return NULL;	/* Return NULL on error */
     }
 
-	/* Read each line of the file to find the forwarding type for the user */
+    /* Read each line of the file to find the forwarding type for the user */
     while (fgets(line, sizeof(line), file)) 
-	{
+    {
         sscanf(line, "%ld,%ld,%[^,],%d", &snumber, &rnumber, type, &active);
 
         if(snumber == sphno)	/* If the user number matches */
@@ -458,12 +459,12 @@ char *check_forwarding_type(long int sphno)
 void *main_menu(void *client)
 {
     int client_sock=*(int *)client;
-	int option=0;
+    int option=0;
 
-	/* Receive the menu option from the client */
+    /* Receive the menu option from the client */
     recv(client_sock,&option,sizeof(option),0);
 
-	/* Process the user's selection */
+    /* Process the user's selection */
     switch(option)
     {
         case 1:
@@ -477,14 +478,14 @@ void *main_menu(void *client)
         case 3:
             forward_call(client_sock);	/* Handle call forwarding */
             break;
-		case 0:
-			printf("Client exiting...\n");
-			break;
+	case 0:
+	    printf("Client exiting...\n");
+	    break;
         default:
-			log_changes(WARNING,"Invalid option while choosing from menu");
-			break;
+	     log_changes(WARNING,"Invalid option while choosing from menu");
+	     break;
     }
-	return NULL;	/* Return after processing the user's option */
+    return NULL;	/* Return after processing the user's option */
 }
 
 /****************************************************************************
@@ -498,18 +499,18 @@ void client_register(int client_sock)
 {
     recv(client_sock,&sphno,sizeof(sphno),0);	/* Receive the user number (sphno) */
 
-	if(sphno==0)	/* If the user number is zero, exit the registration */
-	{
-		return;
-	}
-	log_changes(INFO,"User trying to register");
+    if(sphno==0)	/* If the user number is zero, exit the registration */
+    {
+	return;
+    }
+    log_changes(INFO,"User trying to register");
 
-	/* Check if the user number is already taken */
+    /* Check if the user number is already taken */
     if (find_usernumber(sphno, "") == 1)
     {
         send(client_sock, "Usernumber already taken.\nPlease log in.\n", 42, 0);
         printf("Usernumber already taken.\nPlease log in.\n");
-		log_changes(WARNING,"Usernumber already taken while registering");
+	log_changes(WARNING,"Usernumber already taken while registering");
         client_login(client_sock);	/* Direct to login if the user number is taken */
         return;    /* Return after login attempt */
     }
@@ -527,38 +528,38 @@ void client_register(int client_sock)
 
 void set_password(int client_sock)
 {
-	int attempts=0;
+    int attempts=0;
 
-	/* Ask the user to enter a password */
+    /* Ask the user to enter a password */
     send(client_sock, "Enter password: ", 17, 0);
     while (1)
     {
-		if(attempts<3)	  /* Allow up to 3 attempts for correct password entry */
-		{
+	if(attempts<3)	  /* Allow up to 3 attempts for correct password entry */
+	{
         	memset(password, 0, sizeof(password));
         	recv(client_sock, password, sizeof(password), 0);
         	memset(conf_password, 0, sizeof(conf_password));
         	recv(client_sock, conf_password, sizeof(conf_password), 0);
         	if (strcmp(password, conf_password) == 0)	/* If passwords match */
         	{
-            	/* Add client details and complete registration */
-            	add_client_details(sphno, password);
-            	send(client_sock, "Registration successful\n", 26, 0);
-				printf("Registration successful.\n");
-				log_changes(DEBUG,"User register successfully");
-            	break;	  /* Registration successful, exit loop */
+            		/* Add client details and complete registration */
+            		add_client_details(sphno, password);
+            		send(client_sock, "Registration successful\n", 26, 0);
+			printf("Registration successful.\n");
+			log_changes(DEBUG,"User register successfully");
+            		break;	  /* Registration successful, exit loop */
         	}
         	else
         	{
-				send(client_sock,"Enter password: ",17,0);	  /* Prompt again if passwords do not match */
-				attempts++;  /* Increment the attempt counter */
+			send(client_sock,"Enter password: ",17,0);	  /* Prompt again if passwords do not match */
+			attempts++;  /* Increment the attempt counter */
         	}
-		}
-		else
-		{
-			log_changes(WARNING,"Max limit excceded while user entering password to register");
-			break;	  /* Exit after 3 attempts */
-		}
+	  }
+	  else
+	  {
+		log_changes(WARNING,"Max limit excceded while user entering password to register");
+		break;	  /* Exit after 3 attempts */
+	  }
     }
 }
 
@@ -573,64 +574,64 @@ void set_password(int client_sock)
 
 void client_login(int client_sock)
 {
-	int attempts=0;	/* Counter for login attempts */
+    int attempts=0;	/* Counter for login attempts */
 
-	/* Receive user number (phone number) from the client */
+    /* Receive user number (phone number) from the client */
     recv(client_sock,&sphno,sizeof(sphno),0);
-	log_changes(INFO,"User trying to login");
+    log_changes(INFO,"User trying to login");
 
-	/* Check if the user is already registered */
+    /* Check if the user is already registered */
     if (find_usernumber(sphno, "") == -1)
     {
-		/* If not registered, inform the client and prompt for registration */
+	/* If not registered, inform the client and prompt for registration */
         send(client_sock,"User is not registered\n", 25, 0);
         printf("\nUser is not registered\n");
-		log_changes(WARNING,"User trying to login without registering");
+	log_changes(WARNING,"User trying to login without registering");
 
         client_register(client_sock);	/* Call client_register() to register the user */
         return;  /* Return as the user needs to register */
     }
 
-	/* Prompt the user to enter the password */
-	send(client_sock,"Enter password: ",17,0);
+    /* Prompt the user to enter the password */
+    send(client_sock,"Enter password: ",17,0);
 
-	/* Loop for password attempts (maximum of 3 attempts) */
+    /* Loop for password attempts (maximum of 3 attempts) */
     while(1)
     {
-		if(attempts<=3)	/* Allow up to 3 attempts */
-		{
+	if(attempts<=3)	/* Allow up to 3 attempts */
+	{
         	memset(password,0,sizeof(password));	/* Clear the password buffer */
         	recv(client_sock,password,sizeof(password),0);	/* Receive password from the client */
 
-			/* Validate the password */
+		/* Validate the password */
         	if(find_usernumber(sphno,password)==2)
         	{
-				/* Successful login */
-            	send(client_sock,"Logged in successfully.\n",26,0);
-            	printf("Logged in successfully.\n");
-				log_changes(DEBUG,"User logged in successfully");
-            	break;	/* Exit the loop on successful login */
-			}
+			/* Successful login */
+            		send(client_sock,"Logged in successfully.\n",26,0);
+            		printf("Logged in successfully.\n");
+			log_changes(DEBUG,"User logged in successfully");
+            		break;	/* Exit the loop on successful login */
+		}
         	else if(find_usernumber(sphno,password)==1)
         	{
-				/* Invalid password, increment attempt counter and retry */
-				attempts++;
-				send(client_sock,"Enter password: ",17,0);
-				log_changes(WARNING,"Password mismatched while logging");
-            	continue;	/* Continue the loop for another password attempt */
+			/* Invalid password, increment attempt counter and retry */
+			attempts++;
+			send(client_sock,"Enter password: ",17,0);
+			log_changes(WARNING,"Password mismatched while logging");
+            		continue;	/* Continue the loop for another password attempt */
         	}
-			else
-			{
-				continue;	/* Invalid password case, continue without incrementing attempt count */
-			}
-		}
 		else
 		{
-			/* If the maximum number of attempts is reached */
-			printf("Maximum limit reached while logging");
-			log_changes(WARNING,"Max limit reached to enter password while logging");
-			break;	/* Exit the loop */
+			continue;	/* Invalid password case, continue without incrementing attempt count */
 		}
+	}
+	else
+	{
+		/* If the maximum number of attempts is reached */
+		printf("Maximum limit reached while logging");
+		log_changes(WARNING,"Max limit reached to enter password while logging");
+		break;	/* Exit the loop */
+	}
     }
 }
 
@@ -647,7 +648,7 @@ void edit_menu(int client_sock)
     int choice=0;	/* Variable to store the user's choice */
     recv(client_sock,&choice,sizeof(choice),0);	/* Receive the menu choice from the client */
 
-	/* Process the user's choice */
+    /* Process the user's choice */
     switch(choice)
     {
         case 1:
@@ -663,15 +664,15 @@ void edit_menu(int client_sock)
             unregister_client();	/* Call to unregister the client */
             break;
         case 0:
-			/* Exit case */
-			printf("\nClient exiting...\n");
-			log_changes(INFO,"User logged in and exited");
-            break;
+	     /* Exit case */
+	     printf("\nClient exiting...\n");
+	     log_changes(INFO,"User logged in and exited");
+             break;
         default:
-			/* Invalid option case */
-            printf("\nInvalid option\n");
-			log_changes(WARNING,"User logged in and pressed invalid option to do settings");
-            break;
+	     /* Invalid option case */
+             printf("\nInvalid option\n");
+	     log_changes(WARNING,"User logged in and pressed invalid option to do settings");
+             break;
     }
 }
 
@@ -687,11 +688,11 @@ void forwarding_details(int client_sock)
     int choice=0;
     char type[MAXBUFF];	/* To store the forwarding type (e.g., Unconditional, No reply, Busy) */
 
-	/* Receive phone number and forwarding type choice from client */
+    /* Receive phone number and forwarding type choice from client */
     recv(client_sock, &rphno, sizeof(rphno), 0);
     recv(client_sock, &choice, sizeof(choice), 0);
 
-	/* Determine the forwarding type based on client's choice */
+    /* Determine the forwarding type based on client's choice */
     if(choice == 1)
     {
         strcpy(type, "Unconditional");
@@ -705,7 +706,7 @@ void forwarding_details(int client_sock)
         strcpy(type, "Busy");
     }
 
-	/* Call to add forwarding details to the file */
+    /* Call to add forwarding details to the file */
     add_cfss_details(sphno, rphno, type);
 }
 
@@ -718,32 +719,29 @@ void forwarding_details(int client_sock)
 
 void activate_client()
 {
-	result=is_active(sphno,1);	/* Check if the client is already active */
+    result=is_active(sphno,1);	/* Check if the client is already active */
     if(result==1)
     {
-		/* Client is already active */
+	/* Client is already active */
         printf("Already in active state.\n");
-		log_changes(INFO,"User already in active state to forward call");
-        return;
+	log_changes(INFO,"User already in active state to forward call");
     }
-	else if(result==0)
-	{
-		/* Activate the client */
+    else if(result==0)
+    {
+	/* Activate the client */
     	printf("Activated user.\n");
-		log_changes(INFO,"User activated to forward call");
-		return;
-	}
-	else if(result==-1)
-	{
-		/* User has not provided forwarding details */
-		printf("User not given forwarding details.\n");
-		log_changes(WARNING,"User trying to activate without providing forwarding details");
-		return;
-	}
-	else
-	{
-		return;
-	}
+	log_changes(INFO,"User activated to forward call");
+	return;
+    }
+    else if(result==-1)
+    {
+	/* User has not provided forwarding details */
+	printf("User not given forwarding details.\n");
+	log_changes(WARNING,"User trying to activate without providing forwarding details");
+    }
+    else
+    {
+    }
 }
 
 /****************************************************************************
@@ -755,32 +753,28 @@ void activate_client()
 
 void deactivate_client()
 {
-	result=is_active(sphno,0);	/* Check if the client is active for deactivation */
+    result=is_active(sphno,0);	/* Check if the client is active for deactivation */
     if(result==1)
     {
-		/* Client is already in deactivated state */
+	/* Client is already in deactivated state */
         printf("Already in deactive state.\n");
-		log_changes(INFO,"User already in deactive state to forward call");
-        return;
+	log_changes(INFO,"User already in deactive state to forward call");
     }
-	else if(result==0)
-	{
-		/* Deactivate the client */
+    else if(result==0)
+    {
+	/* Deactivate the client */
     	printf("Deactivated user.\n");
-		log_changes(INFO,"User deactivated to forward call");
-		return;
-	}
-	else if(result==-1)
-	{
-		/* User hasn't provided forwarding details */
-		printf("User not given forwarding details.\n");
-		log_changes(WARNING,"User trying to deactivate without providing forwarding details");
-		return;
-	}
-	else
-	{
-		return;
-	}
+	log_changes(INFO,"User deactivated to forward call");
+    }
+    else if(result==-1)
+    {
+	/* User hasn't provided forwarding details */
+	printf("User not given forwarding details.\n");
+	log_changes(WARNING,"User trying to deactivate without providing forwarding details");
+    }
+    else
+    {
+    }
 }
 
 /****************************************************************************
@@ -791,21 +785,21 @@ void deactivate_client()
 
 void unregister_client()
 {
-	result=is_registered(sphno);
+    result=is_registered(sphno);
     if(result==0)
     {
-		/* Unregister the user */
+	/* Unregister the user */
      	printf("Unregistered successfully.\n");
-		log_changes(DEBUG,"Unregistered successfull");
+	log_changes(DEBUG,"Unregistered successfull");
     }
-	else if(result==-1)
-	{
-		printf("User not registered.\n");
-		log_changes(DEBUG,"User not registered");
-	}
-	else
-	{
-	}
+    else if(result==-1)
+    {
+	printf("User not registered.\n");
+	log_changes(DEBUG,"User not registered");
+    }
+    else
+    {
+    }
 
 }
 
@@ -870,7 +864,6 @@ void forward_call(int client_sock)
 	}
 	else
 	{
-		return;
 	}
 }
 
@@ -899,7 +892,7 @@ void log_changes(LogLevel level, const char *function_name)
         return;
     }
 	
-	/* Determine log level string */
+    /* Determine log level string */
     const char *level_str;
     switch(level)
     {
@@ -920,9 +913,9 @@ void log_changes(LogLevel level, const char *function_name)
             break;
     }
  	
-	/* Log the current date, time, and the function where changes are made */
+    /* Log the current date, time, and the function where changes are made */
     fprintf(logfile, "[%s]\nDate: %02d/%02d/%04d Time: %02d:%02d:%02d userNumber: %ld - %s \n\n",level_str,localTime->tm_mday, localTime->tm_mon + 1, localTime->tm_year + 1900,localTime->tm_hour, localTime->tm_min, localTime->tm_sec,sphno,function_name);
 
-	/* Close the log file */
+    /* Close the log file */
     fclose(logfile);
 }
