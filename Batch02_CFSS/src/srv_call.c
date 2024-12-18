@@ -853,13 +853,15 @@ void forward_call(int client_sock)
 	else if(result==1)
 	{
 		/* User is not active */
-		printf("User is not active.\n");
+		printf("User is not active. Unable to forward the call.\n");
+		printf("Calling to usernumber %ld.\n",sphno);
 		log_changes(INFO,"User is not active to forward the call");
 	}
 	else if(result==-1)
 	{
 		/* User hasn't provided forwarding details */
-		printf("%ld not given forwarding details.\n",sphno);
+		printf("%ld not given forwarding details. Unable to forward the call.\n",sphno);
+		printf("Calling to usernumber %ld.\n",sphno);
 		log_changes(INFO,"User not provided forwarding deatils");
 	}
 	else
