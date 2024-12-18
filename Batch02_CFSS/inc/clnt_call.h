@@ -19,7 +19,7 @@ int client(char **);
 void main_menu(int, int);
 void edit_menu(int);
 void login(int);
-void regist(int); // Register a new client
+void regist(int); /* Register a new client */
 void give_details(int);
 void forward_call(int);
 
