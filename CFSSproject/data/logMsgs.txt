@@ -1,0 +1,84 @@
+[INFO]
+Date: 13/12/2024 Time: 12:06:22 userNumber: 0 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 12:07:28 userNumber: 0 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 12:10:39 userNumber: 0 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 12:17:47 userNumber: 0 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 12:21:01 userNumber: 0 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 12:23:22 userNumber: 0 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 12:27:37 userNumber: 0 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 12:30:07 userNumber: 0 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 12:39:17 userNumber: 0 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 12:53:26 userNumber: 1234567890 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 13:03:36 userNumber: 123456789 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 13:05:23 userNumber: 0 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 13:07:44 userNumber: 0 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 13:11:54 userNumber: 0 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 13:23:42 userNumber: 0 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 13:54:51 userNumber: 1234567890 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 13:59:16 userNumber: 1234567890 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 14:03:51 userNumber: 1234567890 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 14:11:27 userNumber: 1234567890 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 14:24:01 userNumber: 1234567890 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 14:58:26 userNumber: 1234567890 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 15:13:43 userNumber: 1234567890 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 15:27:21 userNumber: 0 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 15:47:20 userNumber: 0 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 15:50:29 userNumber: 1234567890 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 15:52:36 userNumber: 1234567890 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 15:52:59 userNumber: 1234567890 - User trying to register 
+
+[INFO]
+Date: 13/12/2024 Time: 15:56:33 userNumber: 1234567890 - User trying to register 
+

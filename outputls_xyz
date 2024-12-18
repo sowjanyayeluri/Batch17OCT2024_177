@@ -1,0 +1,11 @@
+total 24
+-rw-rw-r-- 1 user62 user62     0 Aug 29 04:26 LICENSE.electron.txt
+drwxrwxr-x 2 user62 user62  4096 Oct 23 16:53 batch01
+-rw-rw-r-- 1 user62 user62    11 Oct 23 16:33 file.txt
+-rw-rw-r-- 1 user62 user62     0 Oct 23 14:34 file2
+-rw-rw-r-- 1 user62 user62 10688 Aug 29 04:27 main.py.txt
+-rw-rw-r-- 1 user62 user62     0 Oct 23 16:55 name$
+-rw-rw-r-- 1 user62 user62     0 Oct 23 16:57 outputls_xyz
+-rw-rw-r-- 1 user62 user62     0 Oct 23 16:55 ps
+-rw-rw-r-- 1 user62 user62     0 Oct 23 16:55 text01$
+drwxrwxr-x 2 user62 user62  4096 Oct 23 15:30 training
